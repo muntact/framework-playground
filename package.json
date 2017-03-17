@@ -8,6 +8,7 @@
     "babel-eslint": "7.1.1",
     "babel-jest": "18.0.0",
     "babel-loader": "6.2.10",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-react-app": "^2.2.0",
     "babel-runtime": "^6.20.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -18,11 +19,12 @@
     "detect-port": "1.1.0",
     "dotenv": "2.0.0",
     "eslint": "3.16.1",
-    "eslint-config-react-app": "^0.6.2",
+    "eslint-config-airbnb": "^12.x",
+    "eslint-config-airbnb-flow": "^1.0.2",
     "eslint-loader": "1.6.0",
     "eslint-plugin-flowtype": "2.21.0",
-    "eslint-plugin-import": "2.0.1",
-    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-import": "^1.1.6",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.10.0",
@@ -47,6 +49,7 @@
     "react-dom": "^15.4.2"
   },
   "scripts": {
+    "lint": "eslint --ext .js src/ && flow",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
@@ -78,9 +81,28 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "transform-flow-strip-types"
     ]
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "airbnb",
+      "airbnb-flow"
+    ],
+    "plugins": [
+      "eslint-plugin-flowtype",
+      "eslint-plugin-flowtype-errors",
+      "eslint-plugin-import",
+      "eslint-plugin-jsx-a11y",
+      "eslint-plugin-react"
+    ],
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "react/jsx-filename-extension": 0
+    }
   }
 }

@@ -12,7 +12,7 @@ Tasks:
 
 Project :
 
-* [ ] change linting to airbnb.
-* [ ] Add flow-type
+* [x] change linting to airbnb.
+* [x] Add flow
 * [ ] Add react-router
 * [ ] Add redux
