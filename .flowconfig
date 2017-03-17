@@ -3,6 +3,7 @@
 
 [libs]
 ./node_modules/fbjs/flow/lib
+flow-typed/npm/
 
 [options]
 esproposal.class_static_fields=enable

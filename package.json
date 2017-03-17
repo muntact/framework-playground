@@ -46,7 +46,13 @@
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "redux-actions": "^2.0.1",
+    "redux-logger": "^2.8.2",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^2.5.4"
   },
   "scripts": {
     "lint": "eslint --ext .js src/ && flow",
@@ -102,7 +108,9 @@
       "browser": true
     },
     "rules": {
-      "react/jsx-filename-extension": 0
+      "react/jsx-filename-extension": 0,
+      "react/forbid-prop-types": "warn",
+      "no-debugger": "warn"
     }
   }
 }
