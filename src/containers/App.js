@@ -7,6 +7,7 @@ import ContactList from '../components/ContactList';
 import logo from './logo.svg';
 import './App.css';
 
+// TODO: turn this into something that is called by a layout component.
 class App extends Component {
   componentDidMount() {
     const { fetchUsers, fetchUsersSuccess, fetchUsersFailure } = this.props;
@@ -33,11 +34,13 @@ class App extends Component {
             <ContactList users={this.props.users} />
           }
         </div>
+        {this.props.children}
       </div>
     );
   }
 }
 App.propTypes = {
+  children: PropTypes.any,
   fetchUsers: PropTypes.func,
   fetchUsersSuccess: PropTypes.func,
   fetchUsersFailure: PropTypes.func,
