@@ -3,12 +3,18 @@ Tasks:
 * [x] Requirement 1: The application will show a list of contacts retrieved from http://jsonplaceholder.typicode.com/users
 * [x] Requirement 2: When you click on a contact you will be presented with their business card.
 * [x] Requirement 3: Implement a basic search capability on the list of results.
-* [ ] Requirement 6: Create a separate section that shows some simple reports (Choose any reports you wish to implement):
-   * [ ] How many contacts are there that start with each letter of the alphabet.
-   * [ ] Map each candidates address on a Map.
-   * [ ] Use an API Image Generator to create an image containing the users company catchphrase, and display it
+* [x] Requirement 6: Create a separate section that shows some simple reports (Choose any reports you wish to implement):
+   * [x] How many contacts are there that start with each letter of the alphabet.
+   * [x] Map each candidates address on a Map.
+   * [x] Use an API Image Generator to create an image containing the users company catchphrase, and display it
 
-* Add Meaningful readme
+~Non functional tasks:
+ * [ ] Add Meaningful readme
+ * [ ] Re-architechture the pages
+ * [ ] Add material UI to make it less fugly.
+ * [ ] Use reselect for the state selection.
+ * [ ] Complete styling
+ * [ ] Fix missing flow coverage.
 
 Project :
 

@@ -1,6 +1,7 @@
 // @ flow
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import * as actions from '../stores/users/actions';
 import SearchableContactList from '../components/SearchableContactList';
@@ -27,6 +28,15 @@ class App extends Component {
           <h1>Contact List</h1>
         </div>
         <div>
+          {/* TODO: style this :X */}
+          <Link to="/">
+            <button>Home</button>
+          </Link>
+          <Link to="/admin">
+            <button>Admin</button>
+          </Link>
+        </div>
+        <div>
           { this.props.isLoading &&
             <span>Is Loading </span>
           }
@@ -39,6 +49,7 @@ class App extends Component {
     );
   }
 }
+
 App.propTypes = {
   children: PropTypes.any,
   fetchUsers: PropTypes.func,

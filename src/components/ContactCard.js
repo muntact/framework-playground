@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const ContactCard = ({ user }) => {
-  debugger;
+  console.log('GEO', user.address.geo);
   const { address, company, email, name, phone, username, website } = user;
   const { city, /* geo,*/ street, suite, zipcode } = address;
   const { bs, catchphrase, name: companyName } = company;
