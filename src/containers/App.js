@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../stores/users/actions';
-import ContactList from '../components/ContactList';
+import SearchableContactList from '../components/SearchableContactList';
 import logo from './logo.svg';
 import './App.css';
 
@@ -31,7 +31,7 @@ class App extends Component {
             <span>Is Loading </span>
           }
           { !this.props.isLoading &&
-            <ContactList users={this.props.users} />
+            <SearchableContactList users={this.props.users} />
           }
         </div>
         {this.props.children}
