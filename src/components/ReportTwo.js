@@ -1,70 +1,61 @@
 /* eslint-disable class-methods-use-this*/
 import React, { Component, PropTypes } from 'react';
-import { Gmaps, Marker, InfoWindow } from 'react-gmaps';
+import { Gmaps, Marker } from 'react-gmaps';
 
 const params = { v: '3.exp', key: window.apiKey };
 
 class ReportTwo extends Component {
   constructor() {
     super();
+    this.state = {
+      focusedUser: '',
+    };
     this.onMapCreated = this.onMapCreated.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
-    this.onCloseClick = this.onCloseClick.bind(this);
-    this.onClick = this.onClick.bind(this);
   }
   onMapCreated(map) {
-    map.setOptions({
-      disableDefaultUI: true,
-    });
-  }
-
-  // TODO: do something cool with the events....
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
-  }
-
-  onCloseClick() {
-    console.log('onCloseClick');
-  }
-
-  onClick(e) {
-    console.log('onClick', e);
+    map.setOptions({ disableDefaultUI: true });
   }
 
   render() {
-    // these points appear to be in the ocean....
-    const mapCenterUser = this.props.users[0];
-    const { lat: mapLat, lng: mapLng } = mapCenterUser.address.geo;
+    // must set a default lat, lng so the map can be centered
+    // I am using the first user for these coords.
+    const centerMapUser = this.props.users[0];
+    const { lat: mapLat, lng: mapLng } = centerMapUser.address.geo;
 
     return (
-      <Gmaps
-        width={'800px'}
-        height={'600px'}
-        zoom={3}
-        lat={mapLat}
-        lng={mapLng}
-        loadingMessage={'Loading'}
-        params={params}
-        onMapCreated={this.onMapCreated}
-      >{
-        this.props.users.map((user) => {
-          const { address, name } = user;
-          const { lat, lng } = address.geo;
-          return [
-            <InfoWindow
-              lat={lat}
-              lng={lng}
-              content={name}
-              onCloseClick={this.onCloseClick}
-            />,
-            <Marker
-              lat={lat}
-              lng={lng}
-              draggable
-              onDragEnd={this.onDragEnd}
-            />];
-        })
-      }</Gmaps>
+      <div style={{ margin: '0px 20px' }}>
+        <h1>User Geo-data Report</h1>
+        <p>A Map of users geo information on a world map; the users have a marker and an info
+          window so that user&quot;s names can be displayed. Note: the markers appear to be in the Ocean
+        </p>
+        <p><b>The last focused user was:</b> {this.state.focusedUser}</p>
+        <div>
+          <Gmaps
+            width={'600px'}
+            height={'375px'}
+            zoom={3}
+            lat={mapLat}
+            lng={mapLng}
+            loadingMessage={'Loading'}
+            params={params}
+            onMapCreated={this.onMapCreated}
+          >{
+            this.props.users.map((user) => {
+              const { address, name } = user;
+              const { lat, lng } = address.geo;
+              return (<Marker
+                lat={lat}
+                lng={lng}
+                onMouseOver={() => {
+                  this.setState({
+                    focusedUser: name,
+                  });
+                }}
+              />);
+            })
+          }</Gmaps>
+        </div>
+      </div>
     );
   }
 }

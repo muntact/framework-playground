@@ -7,6 +7,7 @@ Tasks:
    * [x] How many contacts are there that start with each letter of the alphabet.
    * [x] Map each candidates address on a Map.
    * [x] Use an API Image Generator to create an image containing the users company catchphrase, and display it
+* [ ] Additional Requirement: sort the list.
 
 ~Non functional tasks:
  * [ ] Add Meaningful readme

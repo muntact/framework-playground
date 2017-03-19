@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Table, TableHeader, TableBody, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui';
 
-// Report one is super lame....
 const ReportOne = ({ users }) => {
   /* eslint-disable no-param-reassign*/
   const charReport = users.reduce((accumlator, value) => {
@@ -14,16 +14,26 @@ const ReportOne = ({ users }) => {
   /* eslint-enable no-param-reassign*/
 
   return (
-    <div>{
-      Object.keys(charReport)
-        .map(character =>
-          (<div key={character}>
-            <h2>{character}</h2>
-            <div>{charReport[character]}</div>
-          </div>)
-        )}
-    </div>
-  );
+    <div style={{ margin: '0px 20px' }}>
+      <h1>Letter Count Report</h1>
+      <p> A table of letters and counts of the contacts first letter of their first name</p>
+      <Table selectable={false}>
+        <TableHeader displaySelectAll={false}>
+          <TableRow >
+            <TableHeaderColumn>Letter</TableHeaderColumn>
+            <TableHeaderColumn>Count</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false}>{
+          Object.keys(charReport).map(character =>
+            (<TableRow key={character}>
+              <TableRowColumn>{character}</TableRowColumn>
+              <TableRowColumn>{charReport[character]}</TableRowColumn>
+            </TableRow>)
+          )}
+        </TableBody>
+      </Table>
+    </div>);
 };
 
 ReportOne.propTypes = {
