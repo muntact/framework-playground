@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
+import { Divider, List, ListItem } from 'material-ui';
 
 const contactList = ({ users }) => (
-  <ul>
-    {
-      users.map(({ address, company, email, id, name, phone, username, website }, index) =>
-        // console.log(address, company, email, id, name, phone, username, website);
-        (<li key={index}>
-          <Link to={`/contact/${id}`}>{name}</Link>
-        </li>))
+  <List>
+    {users.map(({ id, name }) =>
+      ([<ListItem
+        key={id}
+        primaryText={name}
+        onClick={() => browserHistory.push(`/contact/${id}`)}
+      />, <Divider />,
+      ]))
     }
-  </ul>
+  </List>
 );
 
 contactList.propTypes = {
