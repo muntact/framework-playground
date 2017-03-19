@@ -10,9 +10,12 @@ Tasks:
 
 ~Non functional tasks:
  * [ ] Add Meaningful readme
+    * [ ] Make Sure window.apiKey for GM is set in the readme
  * [ ] Re-architechture the pages
  * [ ] Add material UI to make it less fugly.
- * [ ] Use reselect for the state selection.
+   * [ ] Admin page
+   * [x] Contact page
+ * [ ] evaluate reselect for the state selection - is state so small its meaningless.
  * [ ] Complete styling
  * [ ] Fix missing flow coverage.
 

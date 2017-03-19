@@ -3,15 +3,14 @@ import React, { PropTypes } from 'react';
 import { AppBar } from 'material-ui';
 
 import NavMenu from './NavMenu';
-import '../containers/App.css';
 
 const Layout = ({ children }) => (
-  <div className="App">
+  <div style={{ textAlign: 'center' }}>
     <AppBar
       title="Contact List"
       iconElementLeft={<NavMenu />}
     />
-    <div>{children}</div>
+    <div style={{ width: '100%' }}>{children}</div>
   </div>
 );
 

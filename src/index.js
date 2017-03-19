@@ -7,13 +7,14 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+// You need your own google api key.
+// set it to window.apiKey.
 import './apiKey';
 
 import makeStore from './stores/configure-store';
-import App from './containers/App';
+import ApplicationWrapper from './containers/ApplicationWrapper';
 import AdminContainer from './containers/AdminContainer';
-import ContactCardContainer from './containers/ContactCardContainer';
-import SearchableContactListContainer from './containers/SearchableContactListContainer';
+import ContactContainer from './containers/ContactContainer';
 import './index.css';
 
 const store = makeStore();
@@ -27,12 +28,14 @@ ReactDOM.render(
   (<Provider store={store}>
     <MuiThemeProvider>
       <Router history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={SearchableContactListContainer} />
+        {/* Application Wrapper goes around the entire app, providing layout + data */}
+        <Route path="/" component={ApplicationWrapper}>
+          <IndexRoute component={ContactContainer} />
           <Route path="contact">
-            {/*  Contact/ is an alias for Home... */}
-            <IndexRoute component={SearchableContactListContainer} />
-            <Route path="*" component={ContactCardContainer} />
+            {/*  Contact/ is an alias for Home */}
+            <IndexRoute component={ContactContainer} />
+            {/* TODO: deal with the * error routes */}
+            <Route path="*" component={ContactContainer} />
           </Route>
           <Route path="admin" component={AdminContainer} />
         </Route>

@@ -8,7 +8,8 @@ import * as actions from '../stores/users/actions';
 import Layout from '../components/Layout';
 
 // TODO: rename this...
-class App extends Component {
+// TODO: remove setTimeout.
+class ApplicationWrapper extends Component {
   componentDidMount() {
     const { fetchUsers, fetchUsersSuccess, fetchUsersFailure } = this.props;
     // set the status in flight.
@@ -28,7 +29,9 @@ class App extends Component {
     return (
       <Layout>
         { this.props.isLoading &&
-          <CircularProgress size={80} thickness={5} />
+          <div style={{ marginTop: '100px' }}>
+            <CircularProgress size={80} thickness={5} />
+          </div>
         }
         { !this.props.isLoading &&
           this.props.children
@@ -38,7 +41,7 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+ApplicationWrapper.propTypes = {
   children: PropTypes.any,
   fetchUsers: PropTypes.func,
   fetchUsersSuccess: PropTypes.func,
@@ -56,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
   fetchUsersFailure: () => dispatch(actions.fetchUsersFailure),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationWrapper);
