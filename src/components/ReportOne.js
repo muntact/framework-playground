@@ -1,20 +1,22 @@
 import React, { PropTypes } from 'react';
 import { Table, TableHeader, TableBody, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui';
+import { sortNamesAsc } from '../lib/sortContacts';
 
 const ReportOne = ({ users }) => {
   /* eslint-disable no-param-reassign*/
-  const charReport = users.reduce((accumlator, value) => {
-    const letter = value.name.toLowerCase().charAt(0);
-    if (!accumlator[letter]) {
-      accumlator[letter] = 0;
-    }
-    accumlator[letter] +=1;
-    return accumlator;
-  }, {});
+  const charReport = sortNamesAsc(users)
+    .reduce((accumlator, value) => {
+      const letter = value.name.toLowerCase().charAt(0);
+      if (!accumlator[letter]) {
+        accumlator[letter] = 0;
+      }
+      accumlator[letter] +=1;
+      return accumlator;
+    }, {});
   /* eslint-enable no-param-reassign*/
 
   return (
-    <div style={{ margin: '0px 20px' }}>
+    <div style={{ margin: '20px' }}>
       <h1>Letter Count Report</h1>
       <p> A table of letters and counts of the contacts first letter of their first name</p>
       <Table selectable={false}>
