@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "history": "^4.6.1",
+    "lodash": "^4.17.4",
     "material-ui": "^0.17.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -117,7 +118,13 @@
       "react/jsx-filename-extension": 0,
       "react/forbid-prop-types": "warn",
       "no-debugger": "warn",
-      "max-len": ["warn", { "code": 140, "ignoreComments": true }]
+      "max-len": [
+        "warn",
+        {
+          "code": 140,
+          "ignoreComments": true
+        }
+      ]
     }
   }
 }
