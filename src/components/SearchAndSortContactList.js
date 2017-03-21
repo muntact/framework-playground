@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { TextField, RaisedButton } from 'material-ui';
+import { Divider, TextField, RaisedButton } from 'material-ui';
 
 import { sortNamesAsc, sortNamesDesc } from '../lib/sortContacts';
 import ContactList from './ContactList';
@@ -15,7 +15,7 @@ const sortTypes = {
   },
 };
 
-class SearchableContactList extends Component {
+class SearchAndSortContactList extends Component {
   constructor() {
     super();
     this.state = {
@@ -42,20 +42,20 @@ class SearchableContactList extends Component {
     const { users } = this.props;
     const searchText = this.state.searchText.toLowerCase();
     const filteredUsers = users.filter(({ name }) => name.toLowerCase().indexOf(searchText) > -1);
-    const sortedUsers = this.state.sorting.function(filteredUsers);
+    const sortedFilteredUsers = this.state.sorting.function(filteredUsers);
+
     return (<div>
-      <div>
-        <TextField onChange={this.handleUpdateInput} hintText="Search" />
-        <RaisedButton label={this.state.sorting.buttonText} onClick={this.handleSortContactsClick} />
-      </div>
-      <ContactList users={sortedUsers} />
+      <TextField onChange={this.handleUpdateInput} hintText="Search" fullWidth />
+      <RaisedButton label={`Sort ${this.state.sorting.buttonText}`} onClick={this.handleSortContactsClick} className="col s5 m6 l3" />
+      <Divider />
+      <ContactList users={sortedFilteredUsers} />
     </div>
     );
   }
 }
 
-SearchableContactList.propTypes = {
+SearchAndSortContactList.propTypes = {
   users: PropTypes.array,
 };
 
-export default SearchableContactList;
+export default SearchAndSortContactList;

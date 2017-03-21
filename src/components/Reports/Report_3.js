@@ -48,9 +48,7 @@ class ReportThree extends Component {
     const isWaiting = result === 'waiting';
 
     return (
-      <div style={{ margin: '20px', textAlign: 'center' }}>
-        <h2>Generated image catchphrase report</h2>
-        <p>The following report is generated using the memegenerator API</p>
+      <div>
         { loading &&
           <CircularProgress size={80} thickness={5} />
         }

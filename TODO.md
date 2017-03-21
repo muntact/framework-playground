@@ -13,12 +13,17 @@ Tasks:
  * [ ] Add Meaningful readme
     * [ ] Make Sure window.apiKey for GM is set in the readme
  * [ ] Re-architechture the pages
- * [ ] Add material UI to make it less fugly.
-   * [ ] Admin page
+ * [x] Add material UI to make it less fugly.
+   * [x] Admin page
    * [x] Contact page
  * [ ] evaluate reselect for the state selection - is state so small its meaningless.
- * [ ] Complete styling
+ * [x] Complete styling
  * [ ] Fix missing flow coverage.
+
+ UI things:
+ * [ ] - sort button - doesn't look very nice
+ * [ ] - nav menu dropdown 
+ * [ ] - pretty card ( looks fugly now...)
 
 Project :
 

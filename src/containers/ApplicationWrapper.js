@@ -5,10 +5,8 @@ import { CircularProgress } from 'material-ui';
 
 import * as actions from '../stores/users/actions';
 
-import Layout from '../components/Layout';
+import ApplicationLayout from '../components/Layouts/ApplicationLayout';
 
-// TODO: rename this...
-// TODO: remove setTimeout.
 class ApplicationWrapper extends Component {
   componentDidMount() {
     const { fetchUsers, fetchUsersSuccess, fetchUsersFailure } = this.props;
@@ -17,17 +15,12 @@ class ApplicationWrapper extends Component {
     // setup async result.
     fetch('http://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then((data) => {
-        setTimeout(() => {
-          fetchUsersSuccess(data);
-        }, 2000);
-      })
-      // .then(fetchUsersSuccess)
+      .then(fetchUsersSuccess)
       .catch(fetchUsersFailure);
   }
   render() {
     return (
-      <Layout>
+      <ApplicationLayout>
         { this.props.isLoading &&
           <div style={{ marginTop: '100px' }}>
             <CircularProgress size={80} thickness={5} />
@@ -36,7 +29,7 @@ class ApplicationWrapper extends Component {
         { !this.props.isLoading &&
           this.props.children
         }
-      </Layout>
+      </ApplicationLayout>
     );
   }
 }

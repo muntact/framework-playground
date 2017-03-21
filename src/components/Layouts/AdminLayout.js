@@ -4,10 +4,12 @@ import { Tabs, Tab } from 'material-ui';
 
 const AdminLayout = ({ tabs }) => (
   <Tabs>{
-    tabs.map((tab, index) => (
+    tabs.map(({ component, title, description }, index) => (
       <Tab key={index} label={`Report ${index + 1}`}>
-        <div>
-          { tab }
+        <div style={{ margin: '20px', textAlign: 'center' }}>
+          <h1>{title}</h1>
+          <p>{description}</p>
+          { component }
         </div>
       </Tab>
       ))

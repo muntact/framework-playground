@@ -2,31 +2,26 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import ContactCardContainer from './ContactCardContainer';
-import SearchableContactListContainer from './SearchableContactListContainer';
+import SearchAndSortContactList from '../components/SearchAndSortContactList';
+import ContactLayout from '../components/Layouts/ContactLayout';
 
-import './ContactContainer.css';
-// If there is no user on route, render the list as a list.
-// If there is a user on route, render list as a docked item.
-const ContactContainer = ({ userOnRoute, params }) =>
-  (userOnRoute ?
-  (<div>
-    <div className="side-nav fixed">
-      <SearchableContactListContainer />
-    </div>
-    <main>
-      <div className="container">
-        <ContactCardContainer focusedContact={params.splat} />
-      </div>
-    </main>
-  </div>):
-    <SearchableContactListContainer />);
+const ContactContainer = ({ params, userOnRoute, users }) => {
+  const list = <SearchAndSortContactList users={users} />;
+  const cardContainer = <ContactCardContainer focusedContact={params.splat} />;
+
+  return userOnRoute ?
+    <ContactLayout drawerComponent={list} containerComponent={cardContainer} /> :
+      <ContactLayout drawerComponent={undefined} containerComponent={list} />;
+};
 
 ContactContainer.propTypes = {
-  userOnRoute: PropTypes.bool,
   params: PropTypes.any, // TODO: fix + flow.
+  users: PropTypes.array,
+  userOnRoute: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  users: state.users.users,
   userOnRoute: ownProps.params.splat !== undefined,
 });
 

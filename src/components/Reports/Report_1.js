@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Table, TableHeader, TableBody, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui';
-import { sortNamesAsc } from '../lib/sortContacts';
+import { sortNamesAsc } from '../../lib/sortContacts';
 
 const ReportOne = ({ users }) => {
   /* eslint-disable no-param-reassign*/
@@ -16,9 +16,7 @@ const ReportOne = ({ users }) => {
   /* eslint-enable no-param-reassign*/
 
   return (
-    <div style={{ margin: '20px' }}>
-      <h1>Letter Count Report</h1>
-      <p> A table of letters and counts of the contacts first letter of their first name</p>
+    <div>
       <Table selectable={false}>
         <TableHeader displaySelectAll={false}>
           <TableRow >

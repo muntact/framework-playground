@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react';
 import { AppBar } from 'material-ui';
 
-import NavMenu from './NavMenu';
+import NavMenu from '../NavMenu';
 
 const Layout = ({ children }) => (
   <div style={{ textAlign: 'center' }}>
