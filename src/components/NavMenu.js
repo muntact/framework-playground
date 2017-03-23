@@ -5,20 +5,15 @@ import { IconMenu, IconButton, MenuItem } from 'material-ui';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 const NavMenu = () => (
-  <IconMenu
-    iconButtonElement={<IconButton><MenuIcon /></IconButton>}
-  >
+  <IconMenu iconButtonElement={<IconButton><MenuIcon /></IconButton>}>
     <LinkedMenuItem route="/" menuText="Home" />
     <LinkedMenuItem route="/admin" menuText="Administration" />
   </IconMenu>);
 
 
 // TODO: smooth the hiding of the drop down on navigation...?
-const LinkedMenuItem = props => (
-  <MenuItem
-    primaryText={props.menuText}
-    onClick={() => browserHistory.push(props.route)}
-  />);
+const LinkedMenuItem = ({ route, menuText: primaryText }) =>
+  <MenuItem {...{ primaryText, onClick: () => browserHistory.push(route) }} />;
 
 LinkedMenuItem.propTypes = {
   route: PropTypes.string.isRequired,

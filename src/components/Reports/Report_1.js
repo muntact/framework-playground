@@ -10,7 +10,7 @@ const ReportOne = ({ users }) => {
       if (!accumlator[letter]) {
         accumlator[letter] = 0;
       }
-      accumlator[letter] +=1;
+      accumlator[letter] += 1;
       return accumlator;
     }, {});
   /* eslint-enable no-param-reassign*/

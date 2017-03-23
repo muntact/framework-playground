@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui';
 
 import * as actions from '../stores/users/actions';
+import getUsers from '../service/users';
 
 import ApplicationLayout from '../components/Layouts/ApplicationLayout';
 
@@ -13,21 +14,20 @@ class ApplicationWrapper extends Component {
     // set the status in flight.
     fetchUsers();
     // setup async result.
-    fetch('http://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(fetchUsersSuccess)
-      .catch(fetchUsersFailure);
+    getUsers(fetchUsersSuccess, fetchUsersFailure);
   }
+
   render() {
+    const { isLoading, children } = this.props;
     return (
       <ApplicationLayout>
-        { this.props.isLoading &&
+        { isLoading &&
           <div style={{ marginTop: '100px' }}>
             <CircularProgress size={80} thickness={5} />
           </div>
         }
-        { !this.props.isLoading &&
-          this.props.children
+        { !isLoading &&
+          children
         }
       </ApplicationLayout>
     );

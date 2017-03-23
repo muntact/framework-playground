@@ -4,13 +4,9 @@ import { Divider, List, ListItem } from 'material-ui';
 
 const contactList = ({ users }) => (
   <List>
-    {users.map(({ id, name }) =>
-      ([<ListItem
-        key={id}
-        primaryText={name}
-        onClick={() => browserHistory.push(`/contact/${id}`)}
-      />, <Divider />,
-      ]))
+    {users.map(({ id: key, name: primaryText }) =>
+      // For each user, generate a clickable list item and add the divider.
+      ([<ListItem {...{ key, primaryText, onClick: () => browserHistory.push(`/contact/${key}`) }} />, <Divider />]))
     }
   </List>
 );

@@ -24,17 +24,17 @@ const history = syncHistoryWithStore(browserHistory, store);
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+// TODO: deal with the contact/* error routes
 ReactDOM.render(
   (<Provider store={store}>
     <MuiThemeProvider>
       <Router history={history}>
         {/* Application Wrapper goes around the entire app, providing layout + data */}
         <Route path="/" component={ApplicationWrapper}>
+          {/*  Contact/ is an alias for Home */}
           <IndexRoute component={ContactContainer} />
           <Route path="contact">
-            {/*  Contact/ is an alias for Home */}
             <IndexRoute component={ContactContainer} />
-            {/* TODO: deal with the * error routes */}
             <Route path="*" component={ContactContainer} />
           </Route>
           <Route path="admin" component={AdminContainer} />

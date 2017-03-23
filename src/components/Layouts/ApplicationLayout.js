@@ -6,10 +6,7 @@ import NavMenu from '../NavMenu';
 
 const Layout = ({ children }) => (
   <div style={{ textAlign: 'center' }}>
-    <AppBar
-      title="Contact List"
-      iconElementLeft={<NavMenu />}
-    />
+    <AppBar title="Contact List" iconElementLeft={<NavMenu />} />
     <div style={{ width: '100%' }}>{children}</div>
   </div>
 );
