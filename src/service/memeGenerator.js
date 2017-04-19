@@ -1,4 +1,5 @@
 // TODO: find a lib to sanitize all strings for url consumption; currently would fall over if string contained @ :/
+import R from 'ramda';
 import { toJSON, urlEncodeSpaces } from './helpers';
 
 const MEME_GENERATOR_URL = 'http://version1.api.memegenerator.net';
@@ -8,14 +9,16 @@ const MEME_GENERATOR_URL = 'http://version1.api.memegenerator.net';
 // instance url + test-user info + lang eng, if this we're taken to prod it would need to take params
 const CREATE_INSTANCE = `${MEME_GENERATOR_URL}/Instance_Create?username=test8&password=test8&languageCode=en`;
 // generator list url
-const DAILY_POPULAR_GENERATORS = `${MEME_GENERATOR_URL}/Generators_Select_ByPopular?pageIndex=0&pageSize=12&days=1`;
+const DAILY_POPULAR_GENERATORS = `${MEME_GENERATOR_URL}/Generators_Select_ByPopular`;
+
+const getGeneratorUrl = pageSize => `${DAILY_POPULAR_GENERATORS}?pageIndex=0&pageSize=${pageSize}&days=1`;
 
 // convenience helper for making the generator requests with the params.
 const fetchInstance = (instanceId, companyCatchPhrase) =>
-  fetch(`${CREATE_INSTANCE}&generatorID=${instanceId}&text1=${companyCatchPhrase}`);
+  fetch(`${CREATE_INSTANCE}&generatorID=${instanceId}&text1=${urlEncodeSpaces(companyCatchPhrase)}`);
 
 // convenience helper for resolving memegenerator requests. which return a success bool and a result Array<MemeObjects>
-const handleAPIResponse = ({ success, result }, errorText) => {
+const handleAPIResponse = (errorText, { success, result }) => {
   if (success) {
     return result;
   } else { // eslint-disable-line no-else-return
@@ -23,15 +26,24 @@ const handleAPIResponse = ({ success, result }, errorText) => {
   }
 };
 
-// could this be turned into a R.zip? - also use R.curry + R.nary(2) to force allow it to be plugged straight into a then...?
-const requestMemesForAllUsers = (memes, users) =>
+const joinUserAndMeme = (user, meme) => Object.assign({}, user, meme);
+
+// helper useful for making 'prepared' promise chains.
+const nary2ChainableHelper = func => R.curry(R.nAry(2, func));
+
+const requestMemesForAllUsers = (users, memes) =>
   Promise.all(
-    users.map(({ company }, index) =>
-      fetchInstance(memes[index].generatorID, urlEncodeSpaces(company.catchPhrase))
-        .then(toJSON)
-        .then(generatedMeme => handleAPIResponse(generatedMeme, `failed at index:${index}`))
-    )
-  );
+    R.zipWith(joinUserAndMeme, users, memes) // join the objects together.
+      .map(({ company: { catchPhrase }, generatorID }, index) =>
+        fetchInstance(generatorID, catchPhrase)
+          .then(toJSON)
+          .then(exactHandleAPIResponse(`failed at index:${index}`)) // eslint-disable-line no-use-before-define
+      )
+    );
+
+// nAry2 curried helpers for convenient chaining with 1 arg.
+const exactHandleAPIResponse = nary2ChainableHelper(handleAPIResponse);
+const exactHandleRequestMemesForAllUsers = nary2ChainableHelper(requestMemesForAllUsers);
 
 /*
  Function which generates a collection of images from memes with the company catch phrase as the meme text,
@@ -41,11 +53,10 @@ const requestMemesForAllUsers = (memes, users) =>
   onFailure - callback function which returns the err object.
 */
 const makeMemesWithCompanyCatchPhrases = (users, onSuccess, onFailure) => {
-  fetch(DAILY_POPULAR_GENERATORS)
+  fetch(getGeneratorUrl(users.length))
     .then(toJSON)
-    .then(response => handleAPIResponse(response, 'Failed to get the generators'))
-    .then(memes => memes.splice(0, users.length))
-    .then(memes => requestMemesForAllUsers(memes, users))
+    .then(exactHandleAPIResponse('Failed to get the generators'))
+    .then(exactHandleRequestMemesForAllUsers(users))
     .then(onSuccess)
     .catch(onFailure);
 };

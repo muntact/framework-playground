@@ -1,5 +1,6 @@
-import { orderBy } from 'lodash';
+import R from 'ramda';
 
-// Could abstract this so that we call sortNames(collection, order) but meh, already trivial.
-export const sortNamesAsc = collection => orderBy(collection, ['name'], ['asc']);
-export const sortNamesDesc = collection => orderBy(collection, ['name'], ['desc']);
+const getLowerName = R.compose(R.toLower, R.prop('name'));
+
+export const sortNamesAsc = collection => R.sortBy(getLowerName)(collection);
+export const sortNamesDesc = collection => R.sortBy(R.compose(R.not, getLowerName))(collection);

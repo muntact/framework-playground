@@ -5,8 +5,8 @@ import { sortNamesAsc } from '../../lib/sortContacts';
 const ReportOne = ({ users }) => {
   /* eslint-disable no-param-reassign*/
   const charReport = sortNamesAsc(users)
-    .reduce((accumlator, value) => {
-      const letter = value.name.toLowerCase().charAt(0);
+    .reduce((accumlator, { name }) => {
+      const letter = name.toLowerCase().charAt(0);
       if (!accumlator[letter]) {
         accumlator[letter] = 0;
       }
